@@ -34,14 +34,7 @@ const Auth = () => {
       if (data.user) navigate('/')
     } catch (error) {
       let text = validation(error)
-      toast.error(text, {
-        position: 'top-center',
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false,
-      });
+      alert(text)
     }
   };
 
