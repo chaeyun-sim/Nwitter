@@ -1,44 +1,39 @@
 import { Container } from 'components/CommonStyles';
 import { firestore } from '../../firebase';
-import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { addDoc, collection, getDocs, onSnapshot, orderBy } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
+import { query } from 'firebase/database';
 
-const Home = () => {
+const Home = ({ userObj }) => {
   const [tweet, setTweet] = useState('');
   const [tweets, setTweets] = useState([]);
-  const getNweets = async () => {
-    const Snap = await getDocs(collection(firestore, "nweets"));
-    Snap.forEach((doc) => {
-      // console.log(doc.id, " => ", doc.data());
-      const data = {
-        ...doc.data(),
-        id: doc.id
-      }
-      setTweets(prev => [data, ...prev]);
-    });
-  };
 
   useEffect(() => {
-    getNweets();
-    console.log(tweets)
+    const q = query(
+      collection(firestore, "nweets"),
+      orderBy("createdAt", "desc")
+    );
+    onSnapshot(q, (snapshot) => {
+      const nweetArr = snapshot.docs.map((document) => ({
+        id: document.id,
+        ...document.data(),
+      }));
+      setTweets(nweetArr);
+    });
   }, []);
-
-
 
   const submitHandler = async (event) => {
     event.preventDefault();
-
     try {
-      const doc = await addDoc(collection(firestore, "nweets"), {
-        tweet,
+      await addDoc(collection(firestore, "nweets"), {
+        text: tweet,
         createdAt: Date.now(),
-      })
-      console.log(doc)
+        creatorId: userObj.uid,
+      });
+      setTweet("");
     } catch (err) {
-      console.error(err)
+      console.error("Error adding document: ", err);
     }
-
-    setTweet('')
   };
 
   const changeHandler = (event) => {
@@ -55,7 +50,7 @@ const Home = () => {
       <div>
         {tweets.map((tweet) => (
           <div key={tweet.id}>
-            <h4>{tweet.tweet}</h4>
+            <h4>{tweet.text}</h4>
           </div>
         ))}
       </div>
