@@ -1,8 +1,9 @@
 import { Container } from 'components/CommonStyles';
 import { firestore } from '../../firebase';
-import { addDoc, collection, getDocs, onSnapshot, orderBy } from 'firebase/firestore';
+import { addDoc, collection, onSnapshot, orderBy } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { query } from 'firebase/database';
+import Nweets from 'components/Nweets/Nweets';
 
 const Home = ({ userObj }) => {
   const [tweet, setTweet] = useState('');
@@ -49,9 +50,7 @@ const Home = ({ userObj }) => {
       </form>
       <div>
         {tweets.map((tweet) => (
-          <div key={tweet.id}>
-            <h4>{tweet.text}</h4>
-          </div>
+          <Nweets key={tweet.id} nweetObj={tweet} isOwner={tweet.creatorId === userObj.uid} />
         ))}
       </div>
     </Container>
