@@ -12,13 +12,13 @@ const URL = {
   PROFILE: '/profile'
 }
 
-const Router = ({ isLoggedIn }) => {
+const Router = ({ isLoggedIn, userObj }) => {
   return (
     <BrowserRouter>
       {isLoggedIn && <Navigation />}
       <Routes>
-        <Route path={URL.HOME} element={<PrivateRoute isLoggedIn={isLoggedIn} component={<Home />} />}/>
-        <Route path={URL.PROFILE} element={<PrivateRoute isLoggedIn={isLoggedIn} component={<Profile />} />}/>
+        <Route path={URL.HOME} element={<PrivateRoute isLoggedIn={isLoggedIn} component={<Home userObj={userObj} />} />}/>
+        <Route path={URL.PROFILE} element={<PrivateRoute isLoggedIn={isLoggedIn} component={<Profile userObj={userObj} />} />}/>
         <Route path={URL.LOGIN} element={<Auth />}  />
       </Routes>
       <footer style={{ display: 'flex', justifyContent: 'center'}}>&copy; {new Date().getFullYear()} Nwitter</footer>

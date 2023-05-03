@@ -1,37 +1,29 @@
 import { useEffect, useState } from "react";
 import Router from "./Router";
 import { authService } from '../firebase'
-import { ToastContainer } from "react-toastify";
 
 function App() {
   const [init, setInit] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userObj, setUserObj] = useState(null);
 
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
-      if (user) setIsLoggedIn(true);
+      if (user) {
+        setIsLoggedIn(true);
+        setUserObj(user)
+      }
       else setIsLoggedIn(false);
       setInit(true);
     })
   }, [])
 
+  console.log(userObj)
+
 
   return (
     <div style={{ width: '100%' }}>
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        style={{ fontSize: "1.6rem" }}
-        theme="light"
-      />
-      {init ? <Router isLoggedIn={isLoggedIn} /> : "Loading...."}
+      {init ? <Router isLoggedIn={isLoggedIn} userObj={userObj} /> : "Loading...."}
     </div>
   );
 }
