@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Nav, NavList, NavItems, Title } from './Styles'
+import { Nav, NavList, NavItems } from './Styles'
 import { CgProfile } from 'react-icons/cg'
 import logo from '../../assets/logo.png'
 
-const Navigation = () => {
+const Navigation = ({ userObj }) => {  
   return (
     <Nav>
       <NavList>

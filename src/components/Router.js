@@ -5,6 +5,7 @@ import Home from '../pages/HomePage/Home'
 import PrivateRoute from './PrivateRoute';
 import Navigation from '../components/Navigation/Navigation'
 import Profile from 'pages/ProfilePage/Profile';
+import NotFoundPage from './NotFoundPage';
 
 const URL = {
   HOME: '/',
@@ -12,14 +13,15 @@ const URL = {
   PROFILE: '/profile'
 }
 
-const Router = ({ isLoggedIn, userObj }) => {
+const Router = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
     <BrowserRouter>
-      {isLoggedIn && <Navigation />}
+      {isLoggedIn && <Navigation userObj={userObj} />}
       <Routes>
         <Route path={URL.HOME} element={<PrivateRoute isLoggedIn={isLoggedIn} component={<Home userObj={userObj} />} />}/>
-        <Route path={URL.PROFILE} element={<PrivateRoute isLoggedIn={isLoggedIn} component={<Profile userObj={userObj} />} />}/>
+        <Route path={URL.PROFILE} element={<PrivateRoute isLoggedIn={isLoggedIn} component={<Profile userObj={userObj} refreshUser={refreshUser} />} />}/>
         <Route path={URL.LOGIN} element={<Auth />}  />
+        <Route path='/*' element={<NotFoundPage isLoggedIn={isLoggedIn} />} />
       </Routes>
       {/* <footer style={{ display: 'flex', justifyContent: 'center'}}>&copy; {new Date().getFullYear()} Nwitter</footer> */}
     </BrowserRouter>

@@ -6,8 +6,10 @@ import { query } from 'firebase/database';
 import { ref, uploadString, getDownloadURL } from "@firebase/storage";
 import Nweets from 'components/Nweets/Nweets';
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 
 const Home = ({ userObj }) => {
+  const navigate = useNavigate();
   const [tweet, setTweet] = useState('');
   const [tweets, setTweets] = useState([]);
   const [attachment, setAttachment] = useState("");
