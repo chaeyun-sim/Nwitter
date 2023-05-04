@@ -21,7 +21,7 @@ const Router = ({ isLoggedIn, userObj }) => {
         <Route path={URL.PROFILE} element={<PrivateRoute isLoggedIn={isLoggedIn} component={<Profile userObj={userObj} />} />}/>
         <Route path={URL.LOGIN} element={<Auth />}  />
       </Routes>
-      <footer style={{ display: 'flex', justifyContent: 'center'}}>&copy; {new Date().getFullYear()} Nwitter</footer>
+      {/* <footer style={{ display: 'flex', justifyContent: 'center'}}>&copy; {new Date().getFullYear()} Nwitter</footer> */}
     </BrowserRouter>
   )
 };
