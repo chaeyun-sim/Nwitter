@@ -23,12 +23,12 @@ const Auth = () => {
     const auth = getAuth();
     if (provider) {
       await signInWithPopup(auth, provider);
-      navigate('/')
+      navigate('/home')
     }
   };
 
   return (
-    <Container>
+    <Container style={{ marginTop: '-60px'}}>
       <AuthForm />
       <DividerText>또는</DividerText>
       <Buttons>

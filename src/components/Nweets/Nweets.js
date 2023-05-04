@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 import { HiOutlinePencilAlt } from 'react-icons/hi'
-import { Button } from './Styles'
-import { firestore, storage } from '../../firebase';
+import { Button, Profile, Container, Id, Image } from './Styles'
+import { firestore } from '../../firebase';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
-import { deleteObject, ref } from 'firebase/storage';
+import { deleteObject, getStorage, ref } from 'firebase/storage';
 
 const Nweets = ({ nweetObj, isOwner }) => {
   const [edit, setEdit] = useState(false);
@@ -13,7 +13,13 @@ const Nweets = ({ nweetObj, isOwner }) => {
   const deleteHandler = async () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
       await deleteDoc(doc(firestore, "nweets", `${nweetObj.id}`));
-      await deleteObject(ref(storage, nweetObj.attachmentUrl))
+      await deleteObject(ref(getStorage(), nweetObj.attachmentUrl))
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.error(err)
+        })
     } else {
       console.log('none')
     }
@@ -39,6 +45,8 @@ const Nweets = ({ nweetObj, isOwner }) => {
     .catch((err) => console.error(err));
   };
 
+  console.log(nweetObj)
+
   return (
     <div>
       {edit ? (
@@ -50,16 +58,33 @@ const Nweets = ({ nweetObj, isOwner }) => {
           </form>
         </>
       ) : (
-        <div>
-          <h4>{nweetObj.text}</h4>
-          {nweetObj.attachmentUrl && <img src={nweetObj.attachmentUrl} width="50px" height="50px" alt="tweet" />}
-          {isOwner &&  (
-            <div style={{ marginTop: '-20px'}}>
-              <Button color="crimson" onClick={deleteHandler}><MdDelete style={{ cursor: 'pointer'}} /></Button>
-              <Button color="gray" onClick={updateHandler}><HiOutlinePencilAlt style={{ cursor: 'pointer'}}  /></Button>
-            </div>)
-          }
-        </div>
+        <>
+          <Container>
+            <div style={{ marginTop: '17px'}}>
+              <Profile background={"#" + Math.round(Math.random() * 0xffffee).toString(16)}></Profile>
+            </div>
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <div style={{ display: 'flex', alignItems: 'center', marginLeft: '-10px', width: '400px' }}>
+                  <h4>{nweetObj?.displayName}</h4>
+                  <Id>@{nweetObj?.creatorId}</Id>
+                </div>
+                {isOwner &&  (
+                  <div>
+                    <Button color="crimson" onClick={deleteHandler}><MdDelete style={{ cursor: 'pointer'}} /></Button>
+                    <Button color="gray" onClick={updateHandler}><HiOutlinePencilAlt style={{ cursor: 'pointer'}}  /></Button>
+                  </div>)
+                }
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column'}}>
+                <span style={{ color: 'black', marginBottom: '20px', marginTop: '-13px'}}>{nweetObj.text}</span>
+                {nweetObj?.attachmentUrl && 
+                <Image image={nweetObj?.attachmentUrl} style={{ height: '450px', width: '450px', marginBottom: '30px', borderRadius: '12px', marginTop: '-10px'}}></Image>
+                }
+              </div>
+            </div>
+          </Container>
+        </>
       )}
     </div>
   )

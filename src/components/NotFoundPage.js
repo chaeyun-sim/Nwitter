@@ -7,7 +7,7 @@ const NotFoundPage = ({ isLoggedIn }) => {
 
   const clickHandler = () => {
     if (isLoggedIn) {
-      navigate('/')
+      navigate('/home')
     } else {
       navigate('/login')
     }

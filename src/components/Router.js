@@ -8,7 +8,7 @@ import Profile from 'pages/ProfilePage/Profile';
 import NotFoundPage from './NotFoundPage';
 
 const URL = {
-  HOME: '/',
+  HOME: '/home',
   LOGIN: '/login',
   PROFILE: '/profile'
 }
@@ -23,7 +23,6 @@ const Router = ({ refreshUser, isLoggedIn, userObj }) => {
         <Route path={URL.LOGIN} element={<Auth />}  />
         <Route path='/*' element={<NotFoundPage isLoggedIn={isLoggedIn} />} />
       </Routes>
-      {/* <footer style={{ display: 'flex', justifyContent: 'center'}}>&copy; {new Date().getFullYear()} Nwitter</footer> */}
     </BrowserRouter>
   )
 };

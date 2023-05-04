@@ -3,11 +3,16 @@ import { firestore, storage } from "../../firebase";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { useRef, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
+import { NweetContainer, Form, Input, Tweet, UploadDiv, PictureButton } from "./Styles";
+import { CgProfile } from "react-icons/cg";
+import { AiOutlinePicture } from 'react-icons/ai'
+import { Link } from "react-router-dom";
 
 const NweetFactory = ({ userObj }) => {
   const [tweet, setTweet] = useState('');
   const [attachment, setAttachment] = useState("");
   const imageRef = useRef();
+  const fileInput = useRef();
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -22,12 +27,15 @@ const NweetFactory = ({ userObj }) => {
       text: tweet,
       createdAt: Date.now(),
       creatorId: userObj?.uid,
+      displayName: userObj?.displayName,
       attachmentUrl,
     }
     await addDoc(collection(firestore, "nweets"), nweet)
     setTweet("");
     setAttachment("")
   };
+
+  console.log(userObj)
 
   const changeHandler = (event) => {
     const { value } = event.target;
@@ -43,6 +51,7 @@ const NweetFactory = ({ userObj }) => {
       setAttachment(res.currentTarget.result)
     }
     reader.readAsDataURL(file);
+
   };
 
   const clearHandler = () => {
@@ -50,18 +59,33 @@ const NweetFactory = ({ userObj }) => {
     imageRef.current.value = null;
   }
 
+  const pictureHandler = () => {
+    fileInput.current.click();
+  };
+  
+
   return (
-    <form onSubmit={submitHandler}>
-        <input type="text" value={tweet} onChange={changeHandler} placeholder='무슨 일이 일어나고 있나요?' maxLength={120} />
-        <input type="file" accept="image/*" onChange={fileChangeHandler} />
-        <input type="submit" value="Tweet" />
+    <NweetContainer>
+      <Link to="/profile" style={{ textDecoration: 'none', marginLeft: '10px' }}>
+        <CgProfile size={'40px'} color='black' />
+      </Link>
+      <Form onSubmit={submitHandler}>
+        <Input type="text" value={tweet} onChange={changeHandler} placeholder="What's happening?" maxLength={120} />
+        <div style={{ display: 'flex'}}>
+          <UploadDiv>
+            <PictureButton type="button" onClick={pictureHandler} hidden={attachment}><AiOutlinePicture style={{ color: 'rgb(29, 155, 240)', width: '20px', height: '20px', cursor: 'pointer'}} /></PictureButton>
+            <input type="file" ref={fileInput} accept="image/*" onChange={fileChangeHandler} style={{ display: 'none'}} />
+          </UploadDiv>
+          <Tweet type="submit" disabled={!tweet} style={{ background: tweet ? 'rgb(29, 155, 240)'  : '#99cdf8'}}>Tweet</Tweet>
+        </div>
         {attachment && (
           <div>
             <img ref={imageRef} src={attachment} alt="attachment" width="50px" height="50px" />
-            <button onClick={clearHandler}>Clear</button>
+            <button onClick={clearHandler} style={{ background: 'none', border: 'none'}}>X</button>
           </div>
         )}
-      </form>
+      </Form>
+      </NweetContainer>
   )
 };
 

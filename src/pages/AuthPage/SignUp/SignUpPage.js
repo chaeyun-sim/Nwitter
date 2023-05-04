@@ -1,13 +1,12 @@
-import { useState } from "react";
-import { Content, Input, Submit, Title } from "./Styles";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { Content, Input, Submit, Title } from "../Styles";
 import { useNavigate } from "react-router-dom";
-import { validation } from "./validation";
-import logo from '../../assets/logo.png'
+import { useState } from "react";
+import { validation } from "../validation";
 
-const AuthForm = () => {
+const SignUpPage = () => {
   const navigate = useNavigate();
-  const [inputs, setInputs] = useState({ email: '', password: '' })
+  const [inputs, setInputs] = useState({ email: '', password: '' });
 
   const changeHandler = (event) => {
     const { name, value } = event.target;
@@ -20,7 +19,7 @@ const AuthForm = () => {
     let data;
     const auth = getAuth();
     try {
-      await signInWithEmailAndPassword(auth, inputs.email, inputs.password)
+      await createUserWithEmailAndPassword(auth, inputs.email, inputs.password)
       if (data.user) navigate('/home')
     } catch (error) {
       let text = validation(error)
@@ -30,8 +29,7 @@ const AuthForm = () => {
 
   return (
     <>
-    <img src={logo} width="44px" style={{ marginBottom: '-10px'}} alt="logo" />
-    <Title>Log in to Nwitter</Title>
+      <Title>Log in to Nwitter</Title>
         <Content onSubmit={submitHandler}>
           <Input
             type="text"
@@ -53,13 +51,8 @@ const AuthForm = () => {
           />
           <Submit type="submit" value={"Log In"} />
         </Content>
-        <div style={{ marginBottom: '10px'}}>
-          <span style={{ color: '#74b9f2', fontSize: '13px'}}>Forgot password?</span>
-          <span style={{ color: '#74b9f2', fontSize: '13px'}}> ﹒ </span>
-          <span style={{ color: '#74b9f2', fontSize: '13px'}}>Sign up for Nwitter</span>
-        </div>
-        </>
+    </>
   )
 };
 
-export default AuthForm;
+export default SignUpPage;

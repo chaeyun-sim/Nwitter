@@ -23,12 +23,16 @@ export const Input = styled.input`
   width: 23%;
   min-width: 350px;
   height: 40px;
-  border-radius: 8px;
+  border-radius: 20px;
   border: 1.5px solid lightgray;
   padding-left: 8px;
   padding-right: 8px;
   font-size: 17px;
   margin-bottom: 25px;
+
+  &::placeholder {
+    font-size: 17px;
+  }
 `
 
 export const Submit = styled.input`
@@ -39,17 +43,18 @@ export const Submit = styled.input`
   padding-right: 8px;
   font-size: 17px;
   margin-bottom: 25px;
-  background: blue;
+  background: #00a1ee;
   color: white;
   border: none;
   border-radius: 20px;
   cursor: pointer;
+  font-weight: bold;
 `
 
 export const DividerText = styled.span`
   font-size: 18px;
-  margin-top: 10px;
   margin-bottom: 30px;
+  margin-top: 30px;
   color: gray;
   background: white;
   padding-left: 10px;
