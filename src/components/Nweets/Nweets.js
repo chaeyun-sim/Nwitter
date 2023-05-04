@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { MdDelete } from 'react-icons/md';
 import { HiOutlinePencilAlt } from 'react-icons/hi'
 import { Button } from './Styles'
-import { firestore } from '../../firebase';
+import { firestore, storage } from '../../firebase';
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { deleteObject, ref } from 'firebase/storage';
 
 const Nweets = ({ nweetObj, isOwner }) => {
   const [edit, setEdit] = useState(false);
@@ -11,8 +12,8 @@ const Nweets = ({ nweetObj, isOwner }) => {
 
   const deleteHandler = async () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
-      const ref = doc(firestore, "nweets", `${nweetObj.id}`);
-      await deleteDoc(ref);
+      await deleteDoc(doc(firestore, "nweets", `${nweetObj.id}`));
+      await deleteObject(ref(storage, nweetObj.attachmentUrl))
     } else {
       console.log('none')
     }
