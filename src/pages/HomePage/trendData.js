@@ -36,10 +36,6 @@ export const data = [
     count: '11.1K Nweets'
   },
   {
-    title: 'Digital Nomad',
-    count: '11.1K Nweets'
-  },
-  {
     title: 'Why does it',
     count: ''
   }

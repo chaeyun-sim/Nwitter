@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Nav, NavList, NavItems } from './Styles'
-import { CgProfile } from 'react-icons/cg'
 import logo from '../../assets/logo.png'
 
 const Navigation = () => {  
@@ -10,7 +9,7 @@ const Navigation = () => {
       <NavList>
         <NavItems>
           <Link to="/home" style={{ 'textDecoration': 'none'}} >
-            <img src={logo} alt="logo" width="42px" style={{ marginRight: '10px', marginTop: '-5px' }} />
+            <img src={logo} alt="logo" width="33px" style={{ marginRight: '10px', marginTop: '-7px', marginLeft: '-5px' }} />
           </Link>
         </NavItems>
       </NavList>

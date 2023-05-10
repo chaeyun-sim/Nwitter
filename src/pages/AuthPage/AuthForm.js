@@ -54,9 +54,9 @@ const AuthForm = () => {
           <Submit type="submit" value={"Log In"} />
         </Content>
         <div style={{ marginBottom: '10px'}}>
-          <span style={{ color: '#74b9f2', fontSize: '13px'}}>Forgot password?</span>
+          <span style={{ color: '#74b9f2', fontSize: '13px', cursor: 'pointer'}}>Forgot password?</span>
           <span style={{ color: '#74b9f2', fontSize: '13px'}}> ﹒ </span>
-          <span style={{ color: '#74b9f2', fontSize: '13px'}}>Sign up for Nwitter</span>
+          <span style={{ color: '#74b9f2', fontSize: '13px', cursor: 'pointer'}}>Sign up for Nwitter</span>
         </div>
         </>
   )

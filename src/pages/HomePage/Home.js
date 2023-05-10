@@ -23,6 +23,7 @@ import { FiSearch } from "react-icons/fi";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { data } from "./trendData";
 import { avatars } from "./avatarData";
+import LeftNavigation from "./LeftNavigation";
 
 const Home = ({ userObj }) => {
   const [tweets, setTweets] = useState([]);
@@ -44,21 +45,24 @@ const Home = ({ userObj }) => {
   return (
     <>
       <BodyContainer>
+        <LeftNavigation />
         <div style={{ width: "55%" }}>
           <h2 style={{ marginTop: "-55px", marginBottom: "30px" }}>Home</h2>
           <NweetFactory userObj={userObj} />
           <Nweet>
-            {tweets.map((tweet) => (
+            {tweets.map((tweet, index) => (
               <Nweets
                 key={tweet.id}
                 nweetObj={tweet}
                 isOwner={tweet.creatorId === userObj.uid}
+                index={index}
+                len={tweets.length}
               />
             ))}
           </Nweet>
         </div>
         <Trend>
-          <div style={{ marginBottom: "16.5px" }}>
+          <div style={{ marginBottom: "18px" }}>
             <label>
               <FiSearch
                 style={{
@@ -79,7 +83,7 @@ const Home = ({ userObj }) => {
           <Content>
             <Title>Trends for you</Title>
             {data.map((el) => (
-              <Section>
+              <Section key={el.title}>
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <TrendSpan>Trending in South Korea</TrendSpan>
                   <HashTag>{el.title}</HashTag>

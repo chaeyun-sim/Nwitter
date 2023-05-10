@@ -14,10 +14,10 @@ export const Container = styled.div`
 export const BodyContainer = styled.div`
   width: 90%;
   height: 93vh;
-  padding-left: 4%;
-  padding-right: 4%;
+  padding-left: 40px;
+  /* padding-left: 100px; */
   padding-top: -4%;
   display: flex;
   flex-direction: row;
-  margin-left: 70px;
+  /* margin-left: 70px; */
 `

@@ -21,6 +21,10 @@ export const Container = styled.div`
   padding-left: 3%;
   border: 1px solid rgb(239, 243, 244);
   width: 97%;
+
+  &:nth-last-child() {
+    background: red;
+  }
 `
 
 export const Id = styled.span`

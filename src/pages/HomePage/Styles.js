@@ -50,6 +50,7 @@ export const Tweet = styled.button`
   min-height: 36px;
   padding-left: 16px;
   padding-right: 16px;
+  padding-bottom: -100px;
   align-self: right;
   cursor: pointer;
 `;
@@ -79,7 +80,7 @@ export const Nweet = styled.div`
 export const Trend = styled.div`
   width: 40%;
   margin-left: 30px;
-  margin-top: -60px;
+  margin-top: -85px;
 `;
 
 export const SearchInput = styled.input`
@@ -99,26 +100,29 @@ export const Content = styled.div`
   border: none;
   margin-bottom: 16px;
   border-radius: 16px;
-  padding-left: 16px;
-  padding-right: 16px;
-`
+  overflow: hidden;
+`;
 
 export const Title = styled.h2`
-  padding-top: 12px;
   font-weight: bold;
   line-height: 24px;
+  padding-left: 16px;
+  padding-right: 16px;
   font-size: 20px;
   color: rgb(15, 20, 25);
-`
+`;
 
 export const Section = styled.div`
   cursor: pointer;
   padding-bottom: 12px;
   display: flex;
   justify-content: space-between;
-  padding-top: 12px;
-  padding-bottom: 12px;
-`
+  padding: 12px 17px;
+
+  &:hover {
+    background: #edf1f1;
+  }
+`;
 
 export const FollowSection = styled.div`
   cursor: pointer;
@@ -127,29 +131,29 @@ export const FollowSection = styled.div`
   padding-top: 12px;
   padding-bottom: 12px;
   align-items: center;
-`
+`;
 
 export const TrendSpan = styled.span`
   color: rgb(83, 100, 113);
   line-height: 16px;
   font-size: 13px;
-  font-weight: 400; 
+  font-weight: 400;
   width: 100%;
-`
+`;
 
 export const HashTag = styled.span`
   color: rgb(15, 20, 25);
   margin-top: 2px;
   font-weight: 700;
   font-size: 15px;
-`
+`;
 
 export const Count = styled.span`
   margin-top: 4px;
   color: rgb(83, 100, 113);
   font-size: 13px;
   font-weight: 400;
-`
+`;
 
 export const Follow = styled.button`
   background: rgb(15, 20, 25);
@@ -161,7 +165,7 @@ export const Follow = styled.button`
   font-size: 14px;
   line-height: 16px;
   border: none;
-`
+`;
 
 export const Profile = styled.div`
   width: 48px;
@@ -173,4 +177,29 @@ export const Profile = styled.div`
   background-position: center;
   background-size: 80px;
   object-fit: contain;
-`
+`;
+
+export const LeftNav = styled.div`
+  height: 100%;
+  padding-right: 40px;
+  display: flex;
+  flex-direction: column;
+  width: 20px;
+  align-items: center;
+  gap: 30px;
+`;
+
+export const Add = styled.div`
+  background: #00a1ee;
+  width: 52px;
+  height: 52px;
+  cursor: pointer;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background: rgb(26, 140, 216)
+  }
+`;

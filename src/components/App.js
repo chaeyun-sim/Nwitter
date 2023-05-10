@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Router from "./Router";
 import { authService } from '../firebase'
 import { updateProfile } from "firebase/auth";
+import Loading from "./Loading";
 
 function App() {
   const [init, setInit] = useState(false);
@@ -36,7 +37,7 @@ function App() {
 
   return (
     <div style={{ width: '100%' }}>
-      {init ? <Router isLoggedIn={isLoggedIn} userObj={userObj} refreshUser={refreshUser} /> : "Loading...."}
+      {init ? <Router isLoggedIn={isLoggedIn} userObj={userObj} refreshUser={refreshUser} /> : <Loading />}
     </div>
   );
 }
