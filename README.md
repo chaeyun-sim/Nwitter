@@ -4,7 +4,12 @@
 <br />
 
 ### 결과물
-- 로그인 / 소셜로그인 화면
-<img src="src/assets/login.png">
-- 홈 화면
-<img src="src/assets/home.png">
+<p>
+<img src="src/assets/login.png" width="450px">
+<img src="src/assets/home.png" width="450px">
+</p>
+
+<p>
+<img src="src/assets/profile.png" width="450px">
+<img src="src/assets/edit-profile.png" width="450px">
+</p>
