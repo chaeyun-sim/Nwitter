@@ -6,7 +6,7 @@ import { RxEnvelopeClosed } from "react-icons/rx";
 import { BsFileText, BsPerson } from "react-icons/bs";
 import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
 import { RiQuillPenLine } from "react-icons/ri";
-import { Add, LeftNav } from "./Styles";
+import { Add, LeftNav } from "../Styles";
 
 const LeftNavigation = () => {
   return (

@@ -1,27 +1,45 @@
-import { Container } from 'components/CommonStyles';
-import { storage } from '../../firebase';
-import { getAuth, signOut, updateProfile } from 'firebase/auth';
-import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
-import { Button } from 'pages/AuthPage/Styles';
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { BodyContainer } from "components/CommonStyles";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where
+} from "firebase/firestore";
+import LeftNavigation from "pages/HomePage/components/LeftNavigation";
+import TrendPart from "pages/HomePage/components/TrendPart";
+import React, { useEffect, useState } from "react";
+import Nweets from "components/Nweets/Nweets";
+import { Nweet } from "pages/HomePage/Styles";
+import ProfileBox from "./components/ProfileBox";
+import ProfileHeader from "./components/ProfileHeader";
 
-const Profile = ({ refreshUser, userObj }) => {
-  const navigate = useNavigate();
-  const [displayName, setDisplayName] = useState("");
+const Profile = ({
+  refreshUser,
+  userObj,
+  tweets,
+  displayName,
+  setDisplayName
+}) => {
+  const [clicked, setClicked] = useState("tweets");
+  const [nweets, setNweets] = useState([]);
+
+  useEffect(() => {
+    setNweets(tweets);
+  }, [tweets]);
 
   useEffect(() => {
     if (userObj.displayName === null) {
-      setDisplayName(userObj.email.split('@')[0])
+      setDisplayName(userObj.email.split("@")[0]);
     } else {
-      setDisplayName(userObj?.displayName)
+      setDisplayName(userObj?.displayName);
     }
-  }, [])
+  }, []);
 
   const getMyNweets = async () => {
     const q = query(
-    collection(getFirestore(), "nweets"),
-    where("creatorId", "==", userObj?.uid)
+      collection(getFirestore(), "nweets"),
+      where("creatorId", "==", userObj?.uid)
     );
     const querySnapshot = await getDocs(q);
     // querySnapshot.forEach((doc) => {
@@ -31,58 +49,48 @@ const Profile = ({ refreshUser, userObj }) => {
 
   useEffect(() => {
     getMyNweets();
-  }, [])
-
-  const clickHandler = () => {
-    const auth = getAuth();
-    signOut(auth).then(() => {
-      navigate('/login')
-    }).catch((err) => {
-      console.error(err)
-    })
-  }
-
-  const changeHandler = (event) => {
-    setDisplayName(event.target.value)
-  }
-
-  const submitHandler = async (event) => {
-    event.preventDefault();
-
-    if (userObj.displayName !== displayName) {
-      await updateProfile(userObj, { displayName: displayName})
-    }
-  }
-
-  const fileChangeHandler = () => {
-    console.log('file change handler!')
-  }
+  }, []);
 
   return (
-    <Container style={{ justifyContent: 'flex-start', marginTop: '30px'}}>
-      <h1>프로필</h1>
-      <div>
-        <form onSubmit={submitHandler} style={{ display: 'flex', flexDirection: 'column'}}>
-          <div>
-            <label>프로필 이미지</label>
-            <input type="file" onChange={fileChangeHandler} />
-          </div>
-          <div>
-            <label>닉네임</label>
-            <input type="text" placeholder="Display Name" value={displayName} onChange={changeHandler} />
-          </div>
-          <div>
-            <label>이메일</label>
-            <input type="email" placeholder="Email" defaultValue={userObj.email} readOnly />
-          </div>
-          <input type="submit" value="Update profile" />
-        </form>
+    <BodyContainer
+      style={{
+        display: "flex",
+        justifyContent: "flex-start"
+      }}
+    >
+      <LeftNavigation />
+      <div style={{ width: "100%" }}>
+        <ProfileHeader
+          displayName={displayName}
+          tweets={tweets}
+        />
+        <ProfileBox
+          displayName={displayName}
+          userObj={userObj}
+          clicked={clicked}
+          setClicked={setClicked}
+        />
+        {clicked === "tweets" && (
+          <Nweet>
+            {nweets.map((tweet, index) => {
+              if (tweet.creatorId === userObj.uid) {
+                return (
+                  <Nweets
+                    key={tweet.id}
+                    nweetObj={tweet}
+                    index={index}
+                    len={nweets.length}
+                    timeLine={false}
+                  />
+                );
+              }
+            })}
+          </Nweet>
+        )}
       </div>
-      <div style={{ marginTop: '30px'}}>
-        <Button onClick={clickHandler}>로그아웃</Button>
-      </div>
-    </Container>
-  )
+      <TrendPart />
+    </BodyContainer>
+  );
 };
 
 export default Profile;

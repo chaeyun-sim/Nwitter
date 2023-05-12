@@ -6,7 +6,7 @@ import { firestore } from "../../firebase";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { deleteObject, getStorage, ref } from "firebase/storage";
 
-const Nweets = ({ nweetObj, isOwner, index, len }) => {
+const Nweets = ({ nweetObj, index, len, timeLine }) => {
   const [edit, setEdit] = useState(false);
   const [newNweet, setNewNweet] = useState(nweetObj?.text);
 
@@ -93,7 +93,7 @@ const Nweets = ({ nweetObj, isOwner, index, len }) => {
                     <Id>@{nweetObj?.creatorId}</Id>
                   </div>
                 )}
-                {isOwner && (
+                {!timeLine && (
                   <div style={{ display: "flex", justifyContent: "left" }}>
                     <Button
                       color="crimson"

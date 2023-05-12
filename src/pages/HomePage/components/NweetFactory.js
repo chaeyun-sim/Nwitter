@@ -1,5 +1,5 @@
 import { addDoc, collection } from "firebase/firestore";
-import { firestore, storage } from "../../firebase";
+import { firestore, storage } from "../../../firebase";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
@@ -10,7 +10,7 @@ import {
   Tweet,
   UploadDiv,
   PictureButton
-} from "./Styles";
+} from "../Styles";
 import { CgProfile } from "react-icons/cg";
 import { AiOutlinePicture } from "react-icons/ai";
 import { Link } from "react-router-dom";
