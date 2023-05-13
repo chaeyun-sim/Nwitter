@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/nwitter/static/js/main.f11ba915.js",
+    "static/media/logo.png": "/nwitter/static/media/logo.b413b75b86f226240110.png",
+    "index.html": "/nwitter/index.html",
+    "main.f11ba915.js.map": "/nwitter/static/js/main.f11ba915.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.f11ba915.js"
+  ]
+}
