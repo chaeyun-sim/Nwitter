@@ -7,11 +7,11 @@
 
 ### 결과물
 <p>
-<img src="src/assets/login.png" width="450px">
-<img src="src/assets/home.png" width="450px">
+<img src="src/assets/login.png" width="650px">
+<img src="src/assets/home.png" width="650px">
 </p>
 
 <p>
-<img src="src/assets/profile.png" width="450px">
-<img src="src/assets/edit-profile.png" width="450px">
+<img src="src/assets/profile.png" width="650px">
+<img src="src/assets/edit-profile.png" width="650px">
 </p>
